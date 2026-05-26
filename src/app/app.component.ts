@@ -26,7 +26,8 @@ export class AppComponent {
   }
 
   constructor() {
-    this.saveLastVisitDate()
+    this.saveLastVisitDate();
+    this.trackPageVisit;
   }
 
   trackPageVisit(): void {
@@ -34,8 +35,8 @@ export class AppComponent {
     if (savedVisits === null) {
       localStorage.setItem('visitCount', "1")
     } else {
-      const currenCount = parseInt(savedVisits);
-      const newCount = currenCount + 1;
+      const currentCount = parseInt(savedVisits);
+      const newCount = currentCount + 1;
       localStorage.setItem('visitCount', newCount.toString())
     }
   }
