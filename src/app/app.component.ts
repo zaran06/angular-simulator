@@ -27,7 +27,7 @@ export class AppComponent {
 
   constructor() {
     this.saveLastVisitDate();
-    this.trackPageVisit;
+    this.trackPageVisit();
   }
 
   trackPageVisit(): void {
