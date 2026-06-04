@@ -3,15 +3,18 @@
 
 * {
   font-family: 'Nunito Sans';
-  margin: 0; 
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
   --bg-header: rgba(24, 18, 30, 0.5);
-  --bg-page: #18121E;
-  --white-color-text: #FDFDFD;
+  --bg-page: #18121e;
+  --white-color-text: #fdfdfd;
+  --yellow-color-text: #f2be22;
+  --green-color-text: #1a3e3e;
+  --bg-page-two: #F3F5F4;
 }
 
 .bold {
@@ -24,6 +27,10 @@
 
 .regular {
   font-weight: 400;
+}
+
+.extra-bold {
+  font-weight: 800;
 }
 
 .fs-14 {
@@ -40,6 +47,14 @@
 
 .fs-20 {
   font-size: 20px;
+}
+
+.fs-24 {
+  font-size: 24px;
+}
+
+.fs-32 {
+  font-size: 32px;
 }
 
 .fs-50 {

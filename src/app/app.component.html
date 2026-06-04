@@ -1,18 +1,43 @@
+@if (isLoading) {
+  <div class="loader-overlay">
+    <img src="/images/loading-icon.svg" class="loader-icon" alt="Загрузка" />
+  </div>
+}
+
 <header>
   <div class="header-container">
     <div class="logo">
       <img src="/images/logo-icon.svg" alt="Логотип РУМТИБЕТ" class="logo-img" />
       <span class="bold">{{ companyName }}</span>
     </div>
-    <nav class="navigation">
-      <a href="#" class="nav-link semi-bold fs-18">Главная</a>
-      <a href="#" class="nav-link semi-bold fs-18">Про гида</a>
-      <a href="#" class="nav-link semi-bold fs-18">Программа тура</a>
-      <a href="#" class="nav-link semi-bold fs-18">Стоимость</a>
-      <a href="#" class="nav-link semi-bold fs-18">Блог</a>
-      <a href="#" class="nav-link semi-bold fs-18">Контакты</a>
+
+    <nav class="navigation semi-bold fs-18">
+      <a href="#" class="nav-link">Главная</a>
+      <a href="#" class="nav-link">Про гида</a>
+      <a href="#" class="nav-link">Программа тура</a>
+      <a href="#" class="nav-link">Стоимость</a>
+      <a href="#" class="nav-link">Блог</a>
+      <a href="#" class="nav-link">Контакты</a>
     </nav>
-    <button class="consult-btn semi-bold">Консультация</button>
+
+    <div class="header-right-column">
+      <button class="consult-btn semi-bold">Консультация</button>
+      <div class="interactive-zone">
+        @if (showTask4) {
+          <span>{{ currentTime }}</span>
+        } @else {
+          <div class="counter-controls">
+            <button (click)="decrement()" [disabled]="counter <= 0">-</button>
+            <span>{{ counter }}</span>
+            <button (click)="increment()">+</button>
+          </div>
+        }
+
+        <button (click)="toggleTask()">
+          {{ showTask4 ? 'Показать кликер' : 'Показать дату' }}
+        </button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -23,32 +48,123 @@
   </h1>
 
   <div class="search-panel">
-    <div class="search-inner">
+    <form class="search-inner">
       <div class="search-field search-field--location">
-        <span class="field-label bold fs-16">
+        <label class="field-label bold fs-16" for="location-select">
           <span>Локация для тура</span>
           <img src="/images/arrow-icon.svg" class="field-icon" alt="arrow" />
+
+          <select id="location-select" name="location" class="search-field__select" [(ngModel)]="selectedLocation">
+            <option value="Горы">Горы</option>
+            <option value="Озёра">Озёра</option>
+            <option value="Море">Море</option>
+          </select>
+        </label>
+
+        <span class="field-value regular fs-14">
+          {{ selectedLocation ? selectedLocation : 'выберите из списка' }}
         </span>
-        <span class="field-value regular fs-14">выберите из списка</span>
       </div>
 
       <div class="search-field search-field--date">
-        <span class="field-label bold fs-16">
+        <label class="field-label bold fs-16" for="date-select">
           <span>Дата похода</span>
           <img src="/images/calendar-icon.svg" class="field-icon" alt="calendar" />
+
+          <input 
+            type="date" 
+            id="date-select" 
+            class="search-field__select" 
+            [(ngModel)]="selectedDate" 
+            name="date"
+          />
+        </label>
+
+        <span class="field-value regular fs-14">
+          {{ selectedDate ? selectedDate : 'укажите дату' }}
         </span>
-        <span class="field-value regular fs-14">укажите дату</span>
       </div>
 
       <div class="search-field search-field--participants">
-        <span class="field-label bold fs-16">
+        <label class="field-label bold fs-16">
           <span>Участники</span>
           <img src="/images/arrow-icon.svg" class="field-icon" alt="arrow" />
+          <select id="participants-select" name="participants" class="search-field__select" [(ngModel)]="selectedParticipants">
+            <option value="1">1 участник</option>
+            <option value="2">2 участника</option>
+            <option value="3-5">3–5 участников</option>
+            <option value="6+">Группа от 6 человек</option>
+          </select>
+        </label>
+
+        <span class="field-value regular fs-14">
+          {{ selectedParticipants ? selectedParticipants : 'выберите из списка' }}
         </span>
-        <span class="field-value regular fs-14">выберите из списка</span>
       </div>
 
-      <button class="search-btn bold fs-16">Найти программу</button>
+      <button
+        class="search-btn bold fs-16"
+        [disabled]="!selectedLocation || !selectedDate || !selectedParticipants">
+        Найти программу
+      </button>
+    </form>
+  </div>
+
+  <div class="input-alignment-wrapper">
+    <div class="live-input-container">
+      <div class="input-wrapper">
+        <input [(ngModel)]="liveText" placeholder="Введите текст...">
+        <img src="/images/arrow-input-icon.svg" class="arrow-input-icon" alt="стрелка" />
+      </div>
+      <span> {{ liveText }} </span>
+    </div>
+  </div>
+</section>
+
+<section class="about-hike">
+  <div class="container">
+    <div class="about-hike__images">
+      <img src="/images/mountains-two-section.jpg" alt="Горы в тумане" class="about-hike__img--back">
+      <img src="/images/house.jpg" alt="Домик в горах среди деревьев" class="about-hike__img--front">
+      <img src="/images/play-icon.svg" alt="Воспроизвести видео" class="about-hike__play-btn">
+    </div>
+
+    <div class="about-hike__content">
+      <span class="about-hike__subtitle regular fs-24">о нашем походе</span>
+      <h2 class="about-hike__title extra-bold fs-32">Исследуйте все горные массивы мира вместе с нами</h2>
+      <p class="about-hike__text regular fs-18">Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum, "consectetur"и занялся его поисками в классической латинской литературе.</p>
+      <button class="about-hike__btn semi-bold fs-16">Программа тура</button>
+    </div>
+  </div>
+</section> 
+
+<section class="programs">
+  <div class="container">
+    <div class="programs__content">
+      <div class="programs__header">
+        <span class="programs__subtitle regular fs-24">наше предложения</span>
+        <h2 class="programs__title extra-bold fs-32">Лучшие программы для тебя</h2>
+      </div>
+      <p class="programs__text regular fs-18">Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа.</p>
+
+      <div class="programs__list">
+        @for (program of programs; track program.id) {
+          <div class="programs__item">
+            <img [src]="program.icon" alt="Иконка программы" class="programs__item-icon">
+            <div class="programs__item-info">
+              <h3 class="programs__item-title bold fs-18">{{ program.title }}</h3>
+              <p class="programs__item-text regular fs-14">{{ program.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+      <button class="programs__btn semi-bold fs-16">Стоимость программ</button>
+    </div>
+
+    <div class="programs__images">
+      @for (photo of programImages; track photo) {
+        <img [src]="photo" alt="Фото программы" class="programs__image-item">
+      }
     </div>
   </div>
 </section>
