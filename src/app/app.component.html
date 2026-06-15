@@ -2,7 +2,6 @@
   <div class="loader-overlay">
     <img src="/images/loading-icon.svg" class="loader-icon" alt="Загрузка" />
   </div>
-  
 }
 <header>
   <div class="header-container">
@@ -133,7 +132,11 @@
       <span class="about-hike__subtitle regular fs-24">о нашем походе</span>
       <h2 class="about-hike__title extra-bold fs-32">Исследуйте все горные массивы мира вместе с нами</h2>
       <p class="about-hike__text regular fs-18">Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum, "consectetur"и занялся его поисками в классической латинской литературе.</p>
-      <button class="about-hike__btn semi-bold fs-16">Программа тура</button>
+      <button 
+        class="about-hike__btn semi-bold fs-16" 
+        (click)="messageService.addMessage('Программа недоступна', MessageType.Warn)">
+        Программа тура
+      </button>
     </div>
   </div>
 </section> 
@@ -158,7 +161,11 @@
           </div>
         }
       </div>
-      <button class="programs__btn semi-bold fs-16">Стоимость программ</button>
+      <button
+       class="programs__btn semi-bold fs-16"
+       (click)="messageService.addMessage('Стоимость отправлена на почту', MessageType.Info)">
+       Стоимость программ
+      </button>
     </div>
 
     <div class="programs__images">
@@ -168,3 +175,89 @@
     </div>
   </div>
 </section>
+
+<section class="popular-destinations">
+  <div class="popular-destinations__header">
+    <span class="popular-destinations-subtitle regular fs-24">по версии отдыхающих</span>
+    <h2 class="popular-destinations-title extra-bold fs-32">Популярные направления</h2>
+  </div>
+  <div class="popular-destinations__cards">
+    @for (card of destinations; track card.id) {
+      <div class="card">
+        <span class="card__rating bold fs-14">
+          <img src="/images/star-icon.svg" alt="star" class="star-icon"> {{ card.rating }}
+        </span>
+        <img [src]="card.image" [alt]="card.title" class="card__image">
+        <div class="card__content">
+          <div class="card__text-wrapper">
+            <h3 class="card__title bold fs-24">{{ card.title }}</h3>
+            <p class="card__description regular fs-14">{{ card.description }}</p>
+          </div>
+          <span class="card__price bold fs-20">{{ card.price }}</span>
+        </div>
+      </div>
+    }
+  </div>
+  <button
+    class="button__rating semi-bold fs-16"
+    (click)="messageService.addMessage('Стоимость отправлена на почту', MessageType.Success)">
+    Рейтинг направлений
+  </button>
+</section>
+
+<section class="travel-blog">
+  <div class="travel-blog__container">
+    <div class="travel-blog__header">
+      <span class="travel-blog__subtitle regular fs-24">делимся впечатленими</span>
+      <h2 class="travel-blog__title extra-bold fs-32">Блог о путешествиях</h2>
+    </div>
+    <div class="travel-blog__cards">
+      @for (card of travel; track card.id) {
+        <div class="blog-card">
+          <img [src]="card.image" [alt]="card.title" class="blog-card__image">
+          <div class="blog-card__content">
+            <h3 class="blog-card__title bold fs-24">{{ card.title }}</h3>
+            <p class="blog-card__description regular fs-14">{{ card.description }}</p>
+            <div class="blog-card__footer">
+              <span class="blog-card__date bold fs-14">{{ card.date }}</span>
+              <a href="#" class="blog-card__link bold fs-14">читать статью</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <button
+      class="button__material semi-bold fs-16"
+      (click)="messageService.addMessage('Материалы недоступны', MessageType.Error)">
+      Другие материалы
+    </button>
+  </div>
+</section>
+
+<div class="toast-container">
+  @for (msg of messageService.getMessages(); track msg.id) {
+    <ng-container
+      [ngTemplateOutlet]="messageTemplate"
+      [ngTemplateOutletContext]="{ $implicit: msg }">
+    </ng-container>
+  }
+</div>
+
+<ng-template #messageTemplate let-m>
+  <div class="toast-card" [class]="m.type">
+    <div class="toast-icon">
+      <img src="/images/message-icon.svg" alt="message-icon">
+    </div>
+
+    <div class="toast-body">
+      <h2 class="toast-title bold fs-16">{{ m.type | titlecase}}</h2>
+      <p class="toast-text regular fs-14">{{ m.text }}</p>
+    </div>
+
+    <button class="toast-close" (click)="messageService.closeMessage(m.id)">
+      <img src="/images/close-icon.svg" alt="close-icon">
+    </button>
+  </div>
+</ng-template>
+
+
