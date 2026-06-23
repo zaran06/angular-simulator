@@ -1,5 +1,5 @@
 import './training';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { StorageService } from './services/storage.service';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,20 +14,29 @@ import { MessageComponent } from "./components/message/message.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent  {
+export class AppComponent implements OnInit, OnDestroy {
   private storageService = inject(StorageService);
   public messageService = inject(MessageService);
   public isLoading: boolean = true;
+  private timerId: any;
 
   constructor() {
     this.saveLastVisitDate();
     this.trackPageVisit();
+  }
 
-    setTimeout(() => {
+  ngOnInit(): void {
+    this.timerId = setTimeout(() => {
       this.isLoading = false;
     }, 2000);
   }
-  
+
+  ngOnDestroy(): void {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
+  }
+
   private saveLastVisitDate(): void {
     const currentDate = new Date().toISOString();
     this.storageService.setItem('lastVisit', currentDate);

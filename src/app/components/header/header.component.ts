@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from "@angular/router";
 
 @Component({
@@ -7,11 +7,23 @@ import { RouterModule } from "@angular/router";
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   readonly companyName = 'РУМТИБЕТ';
   public showTask4: boolean = true;
   public counter: number = 0;
   public currentTime: string = '';
+  private intervalId: any;
+
+  ngOnInit(): void {
+    this.updateTime();
+    this.intervalId = setInterval(() => this.updateTime(), 1000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 
     public toggleTask() {
       this.showTask4 = !this.showTask4;
@@ -26,10 +38,7 @@ export class HeaderComponent {
         this.counter--;
       }
     }
-    constructor() {
-    setInterval(() => this.updateTime(), 1000);
-  }
-
+   
      private updateTime(): void {
     const now = new Date();
     const date = now.toLocaleDateString('ru-RU');
