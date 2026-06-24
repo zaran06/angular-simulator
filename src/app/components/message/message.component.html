@@ -1,0 +1,18 @@
+<div class="toast-container">
+  @for (msg of messageService.getMessages(); track msg.id) {
+    <div class="toast-card" [class]="msg.type">
+      <div class="toast-icon">
+        <img src="/images/message-icon.svg" alt="message-icon">
+      </div>
+      
+      <div class="toast-body">
+        <h2 class="toast-title bold fs-16">{{ msg.type | titlecase}}</h2>
+        <p class="toast-text regular fs-14">{{ msg.text }}</p>
+      </div>
+      
+      <button class="toast-close" (click)="messageService.closeMessage(msg.id)">
+        <img src="/images/close-icon.svg" alt="close-icon">
+      </button>
+    </div>
+  }
+</div>
