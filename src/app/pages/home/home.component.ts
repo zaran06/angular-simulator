@@ -141,7 +141,7 @@ export class HomeComponent {
   private booleanCollection: Collection<boolean> = new Collection<boolean>([true, false]);
 
    public get messages() {
-    return this.messageService.getMessages();
+    return this.messageService.messages$;
   }
 
   public isPrimaryColor(color: string): boolean {
