@@ -1,5 +1,5 @@
 <div class="toast-container">
-  @for (msg of messageService.getMessages(); track msg.id) {
+  @for (msg of messages$ | async; track msg.id) {
     <div class="toast-card" [class]="msg.type">
       <div class="toast-icon">
         <img src="/images/message-icon.svg" alt="message-icon">
