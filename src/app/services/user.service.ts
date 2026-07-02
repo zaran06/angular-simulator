@@ -21,22 +21,20 @@ export class UserService {
     this.usersSubject.next(users);
   }
 
-  loadUsers() {
+  loadUsers(): void {
     this.loaderService.showLoader();
 
-    return this.userApi.getUsers().pipe(
+    this.userApi.getUsers().pipe(
       tap((users) => {
         this.setUsers(users);
       }),
-
       catchError(() => {
         this.messageService.showError('Ошибка загрузки пользователей');
         return of([]);
       }),
-
       finalize(() => {
         this.loaderService.hideLoader();
       })
-    );
+    ).subscribe();
   }
 }

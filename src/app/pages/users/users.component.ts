@@ -12,5 +12,9 @@ export class UsersComponent {
 
   private userService = inject(UserService);
 
-  public users$ = this.userService.loadUsers();
+  public users$ = this.userService.users$;
+
+  ngOnInit(): void {
+    this.userService.loadUsers().subscribe();
+  }
 }
