@@ -1,5 +1,5 @@
 import './training';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StorageService } from './services/storage.service';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
@@ -7,34 +7,26 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { MessageService } from './services/message.service';
 import { MessageComponent } from "./components/message/message.component";
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './services/loader.service';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, MessageComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, MessageComponent, LoaderComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
+  
+  
   private storageService = inject(StorageService);
   public messageService = inject(MessageService);
-  public isLoading: boolean = true;
-  private timerId: any;
+  public loaderService = inject(LoaderService);
 
   constructor() {
     this.saveLastVisitDate();
     this.trackPageVisit();
-  }
-
-  ngOnInit(): void {
-    this.timerId = setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
-
-  ngOnDestroy(): void {
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-    }
   }
 
   private saveLastVisitDate(): void {

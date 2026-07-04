@@ -1,4 +1,4 @@
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 
@@ -12,8 +12,5 @@ import { MessageService } from '../../services/message.service';
 })
 export class MessageComponent {
   public messageService = inject(MessageService);
-
-  public get message() {
-    return this.messageService.getMessages();
-  }
+  public messages$ = this.messageService.messages$;
 }

@@ -1,1 +1,79 @@
-<p>users works!</p>
+<section class="users-section">
+  <div class="users-title-container extra-bold">
+    <h1>Список пользователей</h1>
+  </div>
+
+  <div class="user-container">
+    @for (user of users$ | async; track user.id) {
+      <div class="user-card">
+        <div class="user-header">
+          <h3 class="fs-26 extra-bold">{{ user.name }}</h3>
+          <p class="username fs-15 bold">@{{ user.username }}</p>
+        </div>
+
+        <div class="user-contacts">
+          <h4>КОНТАКТЫ</h4>
+          <div class="info-row">
+            <span class="label">Эл. почта:</span>
+            <span class="value value--accent">{{ user.email }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Телефон:</span>
+            <span class="value">{{ user.phone }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Веб-сайт:</span>
+            <span class="value value--accent">{{ user.website }}</span>
+          </div>
+        </div>
+
+        <div class="user-address">
+          <h4>АДРЕС ПРОЖИВАНИЯ</h4>
+          <div class="info-row">
+            <span class="label">Город:</span>
+            <span class="value">{{ user.address.city }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Улица:</span>
+            <span class="value">{{ user.address.street }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Офис:</span>
+            <span class="value">{{ user.address.suite }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Индекс:</span>
+            <span class="value">{{ user.address.zipcode }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Координаты:</span>
+            <div class="geo-container">
+              <span class="geo-value">{{ user.address.geo.lat }}</span>
+              <span class="geo-value">{{ user.address.geo.lng }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-company">
+          <h4>МЕСТО РАБОТЫ</h4>
+          <div class="info-row">
+            <span class="label">Компания:</span>
+            <span class="value">{{ user.company.name }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Миссия:</span>
+            <span class="value italic-text">{{ user.company.catchPhrase }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Специализация:</span>
+            <span class="value">{{ user.company.bs }}</span>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>Нет пользователей для отображения</p>
+      </div>
+    }
+  </div>
+</section>

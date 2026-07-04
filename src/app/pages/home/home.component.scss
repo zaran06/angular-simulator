@@ -629,11 +629,11 @@
 }
 
 .photo-gallery__item:nth-child(1) { grid-column: span 2; }
-// .photo-gallery__item:nth-child(2) { grid-column: span 1; }
-// .photo-gallery__item:nth-child(3) { grid-column: span 1; }
-// .photo-gallery__item:nth-child(4) { grid-column: span 1; }
+.photo-gallery__item:nth-child(2) { grid-column: span 1; }
+.photo-gallery__item:nth-child(3) { grid-column: span 1; }
+.photo-gallery__item:nth-child(4) { grid-column: span 1; }
 .photo-gallery__item:nth-child(5) { grid-column: span 2; }
-// .photo-gallery__item:nth-child(6) { grid-column: span 1; }
+.photo-gallery__item:nth-child(6) { grid-column: span 1; }
 
 .photo-gallery__image {
   width: 100%;
