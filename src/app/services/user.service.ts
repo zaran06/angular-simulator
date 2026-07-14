@@ -1,40 +1,70 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, finalize, of, tap} from 'rxjs';
+import { BehaviorSubject, catchError, finalize, of, tap } from 'rxjs';
 import { IUser } from '../../interfaces/IUser';
 import { UserApiService } from './user-api.service';
 import { LoaderService } from './loader.service';
 import { MessageService } from './message.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-
   private userApi = inject(UserApiService);
   private loaderService = inject(LoaderService);
   private messageService = inject(MessageService);
+  private storageService = inject(StorageService);
 
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   public users$ = this.usersSubject.asObservable();
+
+  private readonly STORAGE_KEY = 'users';
+
+  private saveToStorage(users: IUser[]): void {
+    this.storageService.setItem(this.STORAGE_KEY, users);
+  }
 
   setUsers(users: IUser[]): void {
     this.usersSubject.next(users);
   }
 
   loadUsers(): void {
+    const localData = this.storageService.getItem<IUser[]>(this.STORAGE_KEY);
+
+    if (localData) {
+      this.setUsers(localData);
+      return;
+    }
+
     this.loaderService.showLoader();
 
-    this.userApi.getUsers().pipe(
-      tap((users) => {
-        this.setUsers(users);
-      }),
-      catchError(() => {
-        this.messageService.showError('Ошибка загрузки пользователей');
-        return of([]);
-      }),
-      finalize(() => {
-        this.loaderService.hideLoader();
-      })
-    ).subscribe();
+    this.userApi
+      .getUsers()
+      .pipe(
+        tap((users) => {
+          this.saveToStorage(users);
+          this.setUsers(users);
+        }),
+        catchError(() => {
+          this.messageService.showError('Ошибка загрузки пользователей');
+          return of([]);
+        }),
+        finalize(() => {
+          this.loaderService.hideLoader();
+        }),
+      )
+      .subscribe();
+  }
+
+  deleteUser(id: number): void {
+    const updateUsers = this.usersSubject.value.filter((u) => u.id !== id);
+    this.setUsers(updateUsers);
+    this.saveToStorage(updateUsers);
+  }
+
+  addUser(user: IUser): void {
+    const updateUsers = [...this.usersSubject.value, user];
+    this.setUsers(updateUsers);
+    this.saveToStorage(updateUsers);
   }
 }
