@@ -4,6 +4,7 @@ import { IUser } from '../../interfaces/IUser';
 import { UserApiService } from './user-api.service';
 import { LoaderService } from './loader.service';
 import { MessageService } from './message.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,15 @@ export class UserService {
   private userApi = inject(UserApiService);
   private loaderService = inject(LoaderService);
   private messageService = inject(MessageService);
+  private storageService = inject(StorageService);
 
   private usersSubject = new BehaviorSubject<IUser[]>([]);
   public users$ = this.usersSubject.asObservable();
 
+  private readonly STORAGE_KEY = 'users';
+
   private saveToStorage(users: IUser[]): void {
-    localStorage.setItem('users', JSON.stringify(users));
+    this.storageService.setItem(this.STORAGE_KEY, users);
   }
 
   setUsers(users: IUser[]): void {
@@ -25,13 +29,12 @@ export class UserService {
   }
 
   loadUsers(): void {
-    const localData = localStorage.getItem('users');
+    const localData = this.storageService.getItem<IUser[]>(this.STORAGE_KEY);
 
     if (localData) {
-      this.setUsers(JSON.parse(localData));
+      this.setUsers(localData);
       return;
     }
-
 
     this.loaderService.showLoader();
 
@@ -54,7 +57,7 @@ export class UserService {
   }
 
   deleteUser(id: number): void {
-    const updateUsers = this.usersSubject.value.filter(u => u.id !== id);
+    const updateUsers = this.usersSubject.value.filter((u) => u.id !== id);
     this.setUsers(updateUsers);
     this.saveToStorage(updateUsers);
   }

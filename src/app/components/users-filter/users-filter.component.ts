@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ReactiveFormsModule, FormControl } from '@angular/forms'
+import { Component, DestroyRef, EventEmitter, inject, Output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
@@ -11,15 +12,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 export class UsersFilterComponent {
   @Output() filterChange = new EventEmitter<string>();
   filterControl = new FormControl('');
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     this.filterControl.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(200), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe((value) => {
         this.filterChange.emit(value || '');
-      })
+      });
   }
 }
