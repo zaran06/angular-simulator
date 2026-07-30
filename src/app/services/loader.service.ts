@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class LoaderService {
-  
   private loaderSubject = new BehaviorSubject<boolean>(false);
 
   public loader$ = this.loaderSubject.asObservable();
@@ -20,3 +19,4 @@ export class LoaderService {
     document.body.style.overflow = 'auto';
   }
 }
+

@@ -9,7 +9,7 @@
       <div class="search-field search-field--location">
         <label class="field-label bold fs-16" for="location-select">
           <span>Локация для тура</span>
-          <img src="/images/down-arrow-icon.svg" class="field-icon" alt="arrow" />
+          <fa-icon [icon]="faChevronDown"class="field-icon"></fa-icon>
 
           <select id="location-select" name="location" class="search-field__select" [(ngModel)]="selectedLocation">
             <option value="Горы">Горы</option>
@@ -26,7 +26,7 @@
       <div class="search-field search-field--date">
         <label class="field-label bold fs-16" for="date-select">
           <span>Дата похода</span>
-          <img src="/images/calendar-icon.svg" class="field-icon" alt="calendar" />
+          <fa-icon [icon]="faCalendar"class="field-icon"></fa-icon>
 
           <input 
             type="date" 
@@ -45,7 +45,7 @@
       <div class="search-field search-field--participants">
         <label class="field-label bold fs-16">
           <span>Участники</span>
-          <img src="/images/down-arrow-icon.svg" class="field-icon" alt="arrow" />
+          <fa-icon [icon]="faChevronDown"class="field-icon"></fa-icon>
           <select id="participants-select" name="participants" class="search-field__select" [(ngModel)]="selectedParticipants">
             <option value="1">1 участник</option>
             <option value="2">2 участника</option>
@@ -71,7 +71,7 @@
     <div class="live-input-container">
       <div class="input-wrapper">
         <input [(ngModel)]="liveText" placeholder="Введите текст...">
-        <img src="/images/arrow-input-icon.svg" class="arrow-input-icon" alt="стрелка" />
+        <fa-icon [icon]="faChevronRight"class="arrow-input-icon"></fa-icon>
       </div>
       <span> {{ liveText }} </span>
     </div>
@@ -83,7 +83,7 @@
     <div class="about-hike__images">
       <img src="/images/mountains-two-section.jpg" alt="Горы в тумане" class="about-hike__img--back">
       <img src="/images/house.jpg" alt="Домик в горах среди деревьев" class="about-hike__img--front">
-      <img src="/images/play-icon.svg" alt="Воспроизвести видео" class="about-hike__play-btn">
+      <fa-icon [icon]="faCirclePlay" class="about-hike__play-btn"></fa-icon>
     </div>
 
     <div class="about-hike__content">
@@ -142,8 +142,9 @@
   <div class="popular-destinations__cards">
     @for (card of destinations; track card.id) {
       <div class="card">
-        <span class="card__rating bold fs-14">
-          <img src="/images/star-icon.svg" alt="star" class="star-icon"> {{ card.rating }}
+        <span class="card__rating">
+          <fa-icon [icon]="faStar" class="star-icon"></fa-icon>
+          {{ card.rating }}
         </span>
         <img [src]="card.image" [alt]="card.title" class="card__image">
         <div class="card__content">

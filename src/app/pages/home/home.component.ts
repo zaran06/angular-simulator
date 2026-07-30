@@ -8,15 +8,23 @@ import { ITravel } from '../../../interfaces/ITravel';
 import { IGalleryItem } from '../../../interfaces/IGalleryItem';
 import { Color } from '../../../enums/Color';
 import { Collection } from '../../collection';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronDown, faChevronRight, faCalendar, faCirclePlay, faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  faChevronDown = faChevronDown;
+  faChevronRight = faChevronRight;
+  faCalendar = faCalendar;
+  faCirclePlay = faCirclePlay;
+  faStar = faStar;
+
   public messageService = inject(MessageService);
 
   public liveText: string = '';
