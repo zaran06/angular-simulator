@@ -9,11 +9,13 @@ import { MessageService } from './services/message.service';
 import { MessageComponent } from "./components/message/message.component";
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader.service';
+import { ButtonModule } from 'primeng/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, MessageComponent, LoaderComponent,],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, MessageComponent, LoaderComponent,ButtonModule,FontAwesomeModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

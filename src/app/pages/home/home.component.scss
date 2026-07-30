@@ -175,7 +175,7 @@
 }
 
 .about-hike {
-  background: #FFFFFF;
+  background: var(--bg-page-one);
   padding: 100px 0;
 }
 
@@ -223,6 +223,8 @@
   cursor: pointer;
   width: 50px;
   height: 50px;
+  font-size: 50px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .about-hike__content {
@@ -385,6 +387,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--bg-page-one);
 }
 
 .popular-destinations__header {
@@ -561,7 +564,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  background-color: var(--white-color-text);
+  background-color: var(--card-background);
 }
 
 .blog-card__image {
@@ -621,6 +624,7 @@
 .photo-gallery {
   padding-top: 85px;
   padding-bottom: 200px;
+  background-color: var(--bg-page-one);
 }
 .photo-gallery__items {
   display: grid;
@@ -672,6 +676,10 @@
 
 .photo-gallery__subtitle {
   color: var(--yellow-color-text);
+}
+
+.star-icon {
+  color: #F2BE22;
 }
 
 

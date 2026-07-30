@@ -8,6 +8,18 @@
   box-sizing: border-box;
 }
 
+body,
+app-root {
+  background-color: var(--bg-page-one);
+}
+
+body.dark-mode {
+  --bg-page-one: #18121e;
+  --bg-page-two: #25212b;
+  --bg-page: #fdfdfd;
+  --card-background: #302b35;
+}
+
 :root {
   --bg-header: rgba(24, 18, 30, 0.5);
   --bg-page: #18121e;
@@ -18,6 +30,8 @@
   --color-dark: #1D3939;
   --color-accent: #D4A373;
   --color-muted: #667C7C;
+  --bg-page-one: #FFFFFF;
+  --card-background: #fdfdfd;
 }
 
 .bold {

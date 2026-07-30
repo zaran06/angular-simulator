@@ -1,7 +1,11 @@
 <header>
   <div class="header-container">
     <div class="logo">
-      <img src="/images/logo-icon.svg" alt="Логотип РУМТИБЕТ" class="logo-img" />
+      <img
+        src="/images/logo-icon.svg"
+        alt="Логотип РУМТИБЕТ"
+        class="logo-img"
+      />
       <span class="bold">{{ companyName }}</span>
     </div>
 
@@ -19,15 +23,44 @@
     </nav>
 
     <div class="header-right-column">
-      <button class="consult-btn semi-bold">Консультация</button>
+      <div class="header-actions">
+        <button class="consult-btn semi-bold">
+          Консультация
+        </button>
+
+        <p-toggleswitch
+          [(ngModel)]="isDarkMode"
+          (onChange)="onModeChange()"
+        >
+        </p-toggleswitch>
+
+        <p-selectbutton
+          [options]="themes"
+          [(ngModel)]="selectedTheme"
+          optionLabel="label"
+          optionValue="value"
+          (onChange)="onThemeChange()"
+        >
+        </p-selectbutton>
+      </div>
+
       <div class="interactive-zone">
         @if (showTask4) {
           <span>{{ currentTime }}</span>
         } @else {
           <div class="counter-controls">
-            <button (click)="decrement()" [disabled]="counter <= 0">-</button>
+            <button
+              (click)="decrement()"
+              [disabled]="counter <= 0"
+            >
+              -
+            </button>
+
             <span>{{ counter }}</span>
-            <button (click)="increment()">+</button>
+
+            <button (click)="increment()">
+              +
+            </button>
           </div>
         }
 
