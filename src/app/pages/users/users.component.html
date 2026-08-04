@@ -1,18 +1,36 @@
 <section class="users-section">
-  <app-users-filter (filterChange)="handleFilter($event)"></app-users-filter>
-  <app-user-create (userCreated)="addUser($event)" />
+  <app-users-filter
+    (filterChange)="handleFilter($event)">
+  </app-users-filter>
 
-  <div class="users-title-container extra-bold">
-    <h1>Список пользователей</h1>
-  </div>
+  <app-user-create
+    (userCreated)="addUser($event)"
+  />
 
-  <div class="user-container">
-    @for (user of filteredUsers$ | async; track user.id) {
-      <app-user-card [user]="user" (deleteUser)="handleDelete($event)" />
-    } @empty {
-      <div class="empty-state">
-        <p>Нет пользователей для отображения</p>
-      </div>
-    }
-  </div>
-</section>
+  @if (filteredUsers$ | async; as users) {
+    <div class="users-title-container extra-bold">
+      <h1>Список пользователей</h1>
+
+      <p>
+        {{ users.length }}
+        {{
+          users.length
+            | plural:'пользователь':'пользователя':'пользователей'
+        }}
+      </p>
+    </div>
+
+    <div class="user-container">
+      @for (user of users; track user.id) {
+        <app-user-card
+          [user]="user"
+          (deleteUser)="handleDelete($event)"
+        />
+      } @empty {
+        <div class="empty-state">
+          <p>Нет пользователей для отображения</p>
+        </div>
+      }
+    </div>
+  }
+</section>a

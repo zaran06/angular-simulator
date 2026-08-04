@@ -8,10 +8,11 @@ import { UsersFilterComponent } from '../../components/users-filter/users-filter
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PluralPipe } from '../../shared/pipes/plural.pipe';
 
 @Component({
   selector: 'app-users',
-  imports: [AsyncPipe, UserCardComponent, UserCreateComponent, UsersFilterComponent],
+  imports: [AsyncPipe, UserCardComponent, UserCreateComponent, UsersFilterComponent, PluralPipe],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })

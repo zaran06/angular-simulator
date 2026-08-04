@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border-top: 4px solid #D4A373;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.06);
+  border-top: 4px solid #d4a373;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   border-radius: 4px;
   gap: 25px;
   box-sizing: border-box;
@@ -18,7 +18,7 @@
 }
 
 .username {
-  color: #D4A373;
+  color: #d4a373;
   line-height: 17.25px;
 }
 
@@ -35,10 +35,10 @@ h4 {
 }
 
 h4::after {
-  content: "";
+  content: '';
   flex-grow: 1;
   height: 1px;
-  background-color: #E2E8F0;
+  background-color: #e2e8f0;
   margin-left: 11px;
 }
 
@@ -76,13 +76,12 @@ h4::after {
 }
 
 .geo-value {
-  background: #F4F7F5;
-  border: 1px solid #E2E8F0;
+  background: #f4f7f5;
+  border: 1px solid #e2e8f0;
   border-radius: 1px;
   padding: 0.5px 6px;
   font-size: 12px;
   font-weight: 700;
-
 }
 
 .italic-text {
@@ -91,11 +90,9 @@ h4::after {
 }
 
 .italic-text::before {
-  content: "«";
+  content: '«';
 }
 
 .italic-text::after {
-  content: "»";
+  content: '»';
 }
-
-

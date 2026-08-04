@@ -3,43 +3,99 @@
     <legend>Основная информация</legend>
 
     <label for="user-name">Имя</label>
-    <input id="user-name" formControlName="name" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="user-name"
+      formControlName="name"
+    />
 
     <label for="user-username">Никнейм</label>
-    <input id="user-username" formControlName="username" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="user-username"
+      formControlName="username"
+    />
 
     <label for="user-email">Email</label>
-    <input id="user-email" formControlName="email" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="user-email"
+      formControlName="email"
+    />
 
     <label for="user-phone">Телефон</label>
-    <input id="user-phone" formControlName="phone" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="user-phone"
+      formControlName="phone"
+    />
 
     <label for="user-website">Сайт</label>
-    <input id="user-website" formControlName="website" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="user-website"
+      formControlName="website"
+    />
   </fieldset>
 
   <fieldset formGroupName="address" class="form-section">
     <legend>Адрес</legend>
 
     <label for="address-city">Город</label>
-    <input id="address-city" formControlName="city" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="address-city"
+      formControlName="city"
+    />
 
     <label for="address-street">Улица</label>
-    <input id="address-street" formControlName="street" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="address-street"
+      formControlName="street"
+    />
 
     <label for="address-suite">Офис/Квартира</label>
-    <input id="address-suite" formControlName="suite" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="address-suite"
+      formControlName="suite"
+    />
 
     <label for="address-zipcode">Индекс</label>
-    <input id="address-zipcode" formControlName="zipcode" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="address-zipcode"
+      formControlName="zipcode"
+    />
 
     <fieldset formGroupName="geo" class="sub-section">
       <legend>Геолокация</legend>
+
       <label for="geo-lat">Широта</label>
-      <input id="geo-lat" formControlName="lat" />
+      <input
+        appGradient
+        [GradientConfiguration]="gradientConfiguration"
+        id="geo-lat"
+        formControlName="lat"
+      />
 
       <label for="geo-lng">Долгота</label>
-      <input id="geo-lng" formControlName="lng" />
+      <input
+        appGradient
+        [GradientConfiguration]="gradientConfiguration"
+        id="geo-lng"
+        formControlName="lng"
+      />
     </fieldset>
   </fieldset>
 
@@ -47,14 +103,29 @@
     <legend>Компания</legend>
 
     <label for="company-name">Название</label>
-    <input id="company-name" formControlName="name" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="company-name"
+      formControlName="name"
+    />
 
     <label for="company-catchPhrase">Слоган</label>
-    <input id="company-catchPhrase" formControlName="catchPhrase" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="company-catchPhrase"
+      formControlName="catchPhrase"
+    />
 
     <label for="company-bs">Бизнес-сфера</label>
-    <input id="company-bs" formControlName="bs" />
+    <input
+      appGradient
+      [GradientConfiguration]="gradientConfiguration"
+      id="company-bs"
+      formControlName="bs"
+    />
   </fieldset>
 
-  <button type="submit" [disabled]="userForm.invalid">Создать</button>
+  <button appBold type="submit" [disabled]="userForm.invalid">Создать</button>
 </form>
