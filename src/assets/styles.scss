@@ -26,11 +26,11 @@ body.dark-mode {
   --white-color-text: #fdfdfd;
   --yellow-color-text: #f2be22;
   --green-color-text: #1a3e3e;
-  --bg-page-two: #F3F5F4;
-  --color-dark: #1D3939;
-  --color-accent: #D4A373;
-  --color-muted: #667C7C;
-  --bg-page-one: #FFFFFF;
+  --bg-page-two: #f3f5f4;
+  --color-dark: #1d3939;
+  --color-accent: #d4a373;
+  --color-muted: #667c7c;
+  --bg-page-one: #ffffff;
   --card-background: #fdfdfd;
 }
 
@@ -82,6 +82,27 @@ body.dark-mode {
   font-size: 50px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
+}
+
+@keyframes gradientBorder {
+  0% {
+    background-position:
+      0 0,
+      0% 50%;
+  }
+
+  50% {
+    background-position:
+      0 0,
+      100% 50%;
+  }
+
+  100% {
+    background-position:
+      0 0,
+      0% 50%;
+  }
 }

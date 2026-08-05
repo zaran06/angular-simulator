@@ -1,9 +1,12 @@
 import { Component, inject, output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BoldDirective } from '../../shared/directives/bold.directive';
+import { GradientDirective } from '../../shared/directives/gradient.directive';
+import { IGradientConfiguration } from '../../../interfaces/IGradientConfiguration';
 
 @Component({
   selector: 'app-user-create',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, BoldDirective, GradientDirective],
   templateUrl: './user-create.component.html',
   styleUrl: './user-create.component.scss',
 })
@@ -36,6 +39,12 @@ export class UserCreateComponent {
       bs: ['', [Validators.maxLength(100)]],
     }),
   });
+
+  public readonly gradientConfiguration: IGradientConfiguration = {
+    delay: 1000,
+    thickness: '2px',
+    colors: ['red', 'orange', 'purple'],
+  };
 
   onSubmit() {
     if (this.userForm.valid) {
