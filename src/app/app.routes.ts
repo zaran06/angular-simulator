@@ -1,10 +1,19 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { UsersComponent } from './pages/users/users.component';
 
 export const routes: Routes = [
-  { path:'', component: HomeComponent },
-  { path:'users', component: UsersComponent },
-  { path:'**', component: NotFoundComponent }
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/home/home.component').then((module) => module.HomeComponent),
+  },
+  {
+    path: 'users',
+    loadComponent: () =>
+      import('./pages/users/users.component').then((module) => module.UsersComponent),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/not-found/not-found.component').then((module) => module.NotFoundComponent),
+  },
 ];

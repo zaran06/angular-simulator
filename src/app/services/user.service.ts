@@ -46,7 +46,6 @@ export class UserService {
           this.setUsers(users);
         }),
         catchError(() => {
-          this.messageService.showError('Ошибка загрузки пользователей');
           return of([]);
         }),
         finalize(() => {

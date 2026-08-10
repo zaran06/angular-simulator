@@ -6,7 +6,6 @@ import { IUser } from '../../interfaces/IUser';
   providedIn: 'root',
 })
 export class UserApiService {
-
   private http = inject(HttpClient);
 
   getUsers() {
