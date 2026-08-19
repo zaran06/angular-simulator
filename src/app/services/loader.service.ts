@@ -9,14 +9,23 @@ export class LoaderService {
 
   public loader$ = this.loaderSubject.asObservable();
 
+  private activeRequests = 0;
+
   showLoader(): void {
+    this.activeRequests++;
+
     this.loaderSubject.next(true);
     document.body.style.overflow = 'hidden';
   }
 
   hideLoader(): void {
-    this.loaderSubject.next(false);
-    document.body.style.overflow = 'auto';
+    this.activeRequests--;
+
+    if (this.activeRequests <= 0) {
+      this.activeRequests = 0;
+
+      this.loaderSubject.next(false);
+      document.body.style.overflow = 'auto';
+    }
   }
 }
-
