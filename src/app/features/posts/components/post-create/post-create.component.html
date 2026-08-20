@@ -1,0 +1,38 @@
+<form [formGroup]="createForm">
+  <div>
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title" />
+  </div>
+
+  <div>
+    <label for="body">Body</label>
+    <textarea id="body" formControlName="body"></textarea>
+  </div>
+
+  <div>
+    <label for="tags">Tags</label>
+    <input id="tags" type="text" formControlName="tags" />
+  </div>
+
+  <div>
+    <label for="views">Views</label>
+    <input id="views" type="number" formControlName="views" />
+  </div>
+
+  <div>
+    <label for="userId">User ID</label>
+    <input id="userId" type="number" formControlName="userId" />
+  </div>
+
+  <div>
+    <label for="likes">Likes</label>
+    <input id="likes" type="number" formControlName="likes" />
+  </div>
+
+  <div>
+    <label for="dislikes">Dislikes</label>
+    <input id="dislikes" type="number" formControlName="dislikes" />
+  </div>
+
+  <button type="button" (click)="createPost()">Create</button>
+</form>

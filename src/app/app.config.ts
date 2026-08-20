@@ -3,13 +3,17 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { loggingInterceptor } from './shared/interceptors/logging.interceptor';
+
 import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+
+import { loggingInterceptor } from './shared/interceptors/logging.interceptor';
+import { loaderInterceptor } from './shared/interceptors/loader.interceptor';
 import { errorInterceptor } from './shared/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -17,7 +21,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideZoneChangeDetection(),
-    provideHttpClient(withInterceptors([loggingInterceptor, errorInterceptor])),
+
+    provideHttpClient(withInterceptors([loggingInterceptor, loaderInterceptor, errorInterceptor])),
+
     providePrimeNG({
       theme: {
         preset: Aura,
