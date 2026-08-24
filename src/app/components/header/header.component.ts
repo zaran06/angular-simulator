@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ThemeService } from '../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { AuthService } from '../../features/auth/services/auth.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, ToggleSwitchModule, FormsModule, SelectButtonModule],
+  imports: [RouterModule, ToggleSwitchModule, FormsModule, SelectButtonModule, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -20,6 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public themeService = inject(ThemeService);
   public isDarkMode: boolean = false;
   public selectedTheme: string = 'Aura';
+  public authService = inject(AuthService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.themeService.mode$.subscribe((mode) => {
@@ -94,5 +98,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public onThemeChange(): void {
     this.themeService.changeTheme(this.selectedTheme);
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
