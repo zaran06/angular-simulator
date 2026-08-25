@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getAccessToken();
+    return !!this.currentUserSubject.value;
   }
 
   refreshToken() {
@@ -67,7 +67,7 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
-  getCurrenUser() {
+  getCurrentUser() {
     return this.http.get<IAuth>(`${this.apiUrl}/me`);
   }
 
@@ -75,17 +75,17 @@ export class AuthService {
     const token = this.getAccessToken();
 
     if (!token) {
-      return;
+      return of(null);
     }
 
-    this.getCurrenUser().subscribe({
-      next: (user) => {
+    return this.getCurrentUser().pipe(
+      tap((user) => {
         this.currentUserSubject.next(user);
-      },
-
-      error: () => {
+      }),
+      catchError(() => {
         this.logout();
-      },
-    });
+        return of(null);
+      }),
+    );
   }
 }
