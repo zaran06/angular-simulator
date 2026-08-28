@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
+
 import { postResolver } from './features/posts/resolvers/post.resolver';
+
 import { authGuard } from './features/auth/guards/auth.guard';
+import { adminGuard } from './features/auth/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -9,39 +12,49 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.component').then((module) => module.HomeComponent),
   },
+
   {
     path: 'users',
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminGuard],
     loadComponent: () =>
       import('./pages/users/users.component').then((module) => module.UsersComponent),
   },
+
   {
     path: 'posts',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/posts/components/posts/posts.component').then(
-        (module) => module.PostsComponent,
-      ),
+    canActivateChild: [adminGuard],
+
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/posts/components/posts/posts.component').then(
+            (module) => module.PostsComponent,
+          ),
+      },
+
+      {
+        path: 'create',
+        loadComponent: () =>
+          import('./features/posts/components/post-create/post-create.component').then(
+            (module) => module.PostCreateComponent,
+          ),
+      },
+
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/posts/components/post-detail/post-detail.component').then(
+            (module) => module.PostDetailComponent,
+          ),
+        resolve: {
+          post: postResolver,
+        },
+      },
+    ],
   },
-  {
-    path: 'posts/create',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/posts/components/post-create/post-create.component').then(
-        (module) => module.PostCreateComponent,
-      ),
-  },
-  {
-    path: 'posts/:id',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/posts/components/post-detail/post-detail.component').then(
-        (module) => module.PostDetailComponent,
-      ),
-    resolve: {
-      post: postResolver,
-    },
-  },
+
   {
     path: 'login',
     loadComponent: () =>
@@ -49,6 +62,7 @@ export const routes: Routes = [
         (module) => module.LoginComponent,
       ),
   },
+
   {
     path: '**',
     loadComponent: () =>
