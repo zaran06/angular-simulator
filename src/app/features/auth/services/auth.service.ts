@@ -88,4 +88,9 @@ export class AuthService {
       }),
     );
   }
+
+  getCurrentUserFromState(): IAuth | null {
+    return this.currentUserSubject.value;
+  }
+  
 }
