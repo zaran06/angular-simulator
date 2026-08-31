@@ -12,8 +12,11 @@ import { MessageService } from '../../../../services/message.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+
   private authService = inject(AuthService);
+
   private router = inject(Router);
+
   private messageService = inject(MessageService);
 
   loginForm = new FormGroup({
@@ -39,4 +42,5 @@ export class LoginComponent {
       },
     });
   }
+
 }

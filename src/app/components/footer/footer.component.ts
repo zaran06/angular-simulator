@@ -9,8 +9,13 @@ import { faTelegram, faVk, faPinterestP, faSkype } from '@fortawesome/free-brand
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
+
   faTelegram = faTelegram;
+
   faVk = faVk;
+
   faPinterestP = faPinterestP;
+
   faSkype = faSkype;
+
 }

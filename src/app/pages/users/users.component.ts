@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AsyncPipe } from '@angular/common';
 import { UserCardComponent } from '../../components/user-card/user-card.component';
@@ -16,12 +16,13 @@ import { PluralPipe } from '../../shared/pipes/plural.pipe';
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
+
   private userService = inject(UserService);
 
   private filterSubject = new BehaviorSubject<string>('');
 
-  public filteredUsers$ = combineLatest([
+  filteredUsers$ = combineLatest([
     this.userService.users$,
     this.filterSubject.asObservable().pipe(debounceTime(200), distinctUntilChanged()),
   ]).pipe(
@@ -47,4 +48,5 @@ export class UsersComponent {
   handleFilter(filterString: string): void {
     this.filterSubject.next(filterString);
   }
+
 }

@@ -7,17 +7,18 @@ import { BehaviorSubject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+
   private http = inject(HttpClient);
 
   private readonly apiUrl = 'https://dummyjson.com/auth';
 
   private currentUserSubject = new BehaviorSubject<IAuth | null>(null);
 
-  public currentUser$ = this.currentUserSubject.asObservable();
+  currentUser$ = this.currentUserSubject.asObservable();
 
   login(username: string, password: string) {
     return this.http
-      .post<IAuth>(`${this.apiUrl}/login`, {
+      .post<IAuth>(`${ this.apiUrl }/login`, {
         username,
         password,
       })
@@ -50,7 +51,7 @@ export class AuthService {
     const refreshToken = this.getRefreshToken();
 
     return this.http
-      .post<IAuth>(`${this.apiUrl}/refresh`, {
+      .post<IAuth>(`${ this.apiUrl }/refresh`, {
         refreshToken,
       })
       .pipe(
@@ -68,7 +69,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.http.get<IAuth>(`${this.apiUrl}/me`);
+    return this.http.get<IAuth>(`${ this.apiUrl }/me`);
   }
 
   initAuth() {
@@ -92,5 +93,5 @@ export class AuthService {
   getCurrentUserFromState(): IAuth | null {
     return this.currentUserSubject.value;
   }
-  
+
 }

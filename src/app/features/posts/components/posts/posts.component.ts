@@ -20,15 +20,23 @@ import { MessageService } from '../../../../services/message.service';
   styleUrl: './posts.component.scss',
 })
 export class PostsComponent implements OnInit {
+
   private postApi = inject(PostApiService);
+
   private router = inject(Router);
+
   private dialogService = inject(DialogService);
+
   private messageService = inject(MessageService);
 
   posts: IPost[] = [];
+
   total = 0;
+
   rows = 10;
+
   first = 0;
+
   loading = false;
 
   selectedPost: IPost | null = null;
@@ -126,4 +134,5 @@ export class PostsComponent implements OnInit {
       },
     });
   }
+
 }

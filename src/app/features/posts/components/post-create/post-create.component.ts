@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostApiService } from '../../services/post-api.service';
 import { IPost } from '../../interfaces/IPost';
@@ -12,8 +12,11 @@ import { MessageService } from '../../../../services/message.service';
   styleUrl: './post-create.component.scss',
 })
 export class PostCreateComponent {
+
   private postApi = inject(PostApiService);
+
   private router = inject(Router);
+
   private messageService = inject(MessageService);
 
   createForm = new FormGroup({
@@ -53,4 +56,5 @@ export class PostCreateComponent {
       },
     });
   }
+
 }

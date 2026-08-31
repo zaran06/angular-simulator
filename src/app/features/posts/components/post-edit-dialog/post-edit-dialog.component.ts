@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IPost } from '../../interfaces/IPost';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { PostApiService } from '../../services/post-api.service';
 import { MessageService } from '../../../../services/message.service';
 
@@ -13,9 +12,13 @@ import { MessageService } from '../../../../services/message.service';
   styleUrl: './post-edit-dialog.component.scss',
 })
 export class PostEditDialogComponent {
+
   private config = inject(DynamicDialogConfig);
+
   private ref = inject(DynamicDialogRef);
+
   private postApi = inject(PostApiService);
+
   private messageService = inject(MessageService);
 
   post: IPost = this.config.data;
@@ -48,4 +51,5 @@ export class PostEditDialogComponent {
       },
     });
   }
+
 }
