@@ -10,13 +10,18 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class UserService {
+
   private userApi = inject(UserApiService);
+
   private loaderService = inject(LoaderService);
+
   private messageService = inject(MessageService);
+
   private storageService = inject(StorageService);
 
   private usersSubject = new BehaviorSubject<IUser[]>([]);
-  public users$ = this.usersSubject.asObservable();
+
+  users$ = this.usersSubject.asObservable();
 
   private readonly STORAGE_KEY = 'users';
 
@@ -66,4 +71,5 @@ export class UserService {
     this.setUsers(updateUsers);
     this.saveToStorage(updateUsers);
   }
+
 }

@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { BoldDirective } from '../../shared/directives/bold.directive';
 import { GradientDirective } from '../../shared/directives/gradient.directive';
 import { IGradientConfiguration } from '../../../interfaces/IGradientConfiguration';
+import { IUser } from '../../../interfaces/IUser';
 
 @Component({
   selector: 'app-user-create',
@@ -11,10 +12,12 @@ import { IGradientConfiguration } from '../../../interfaces/IGradientConfigurati
   styleUrl: './user-create.component.scss',
 })
 export class UserCreateComponent {
-  userCreated = output<any>();
+
+  userCreated = output<IUser>();
+
   private fb = inject(FormBuilder);
 
-  public userForm: FormGroup = this.fb.group({
+  userForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
     username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
@@ -40,7 +43,7 @@ export class UserCreateComponent {
     }),
   });
 
-  public readonly gradientConfiguration: IGradientConfiguration = {
+  readonly gradientConfiguration: IGradientConfiguration = {
     delay: 1000,
     thickness: '2px',
     colors: ['red', 'orange', 'purple'],
@@ -53,4 +56,5 @@ export class UserCreateComponent {
       this.userForm.reset();
     }
   }
+
 }

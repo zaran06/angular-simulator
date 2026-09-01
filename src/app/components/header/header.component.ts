@@ -14,15 +14,25 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
   readonly companyName = 'РУМТИБЕТ';
-  public showTask4: boolean = true;
-  public counter: number = 0;
-  public currentTime: string = '';
-  private intervalId: any;
-  public themeService = inject(ThemeService);
-  public isDarkMode: boolean = false;
-  public selectedTheme: string = 'Aura';
-  public authService = inject(AuthService);
+
+  showTask4 = true;
+
+  counter = 0;
+
+  currentTime = '';
+
+  private intervalId: number | undefined;
+
+  themeService = inject(ThemeService);
+
+  isDarkMode = false;
+
+  selectedTheme = 'Aura';
+
+  authService = inject(AuthService);
+
   private router = inject(Router);
 
   ngOnInit(): void {
@@ -43,15 +53,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  public toggleTask() {
+  toggleTask() {
     this.showTask4 = !this.showTask4;
   }
 
-  public increment() {
+  increment() {
     this.counter++;
   }
 
-  public decrement() {
+  decrement() {
     if (this.counter > 0) {
       this.counter--;
     }
@@ -65,15 +75,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       minute: '2-digit',
       second: '2-digit',
     });
-    this.currentTime = `${date} ${time}`;
+    this.currentTime = `${ date } ${ time }`;
   }
 
-  public navLinks = [
+  navLinks = [
     { label: 'Главная', path: '/' },
     { label: 'Пользователи', path: '/users' },
   ];
 
-  public themes = [
+  themes = [
     {
       label: 'Aura',
       value: 'Aura',
@@ -88,7 +98,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  public onModeChange(): void {
+  onModeChange(): void {
     if (this.isDarkMode) {
       this.themeService.changeMode('dark');
     } else {
@@ -96,12 +106,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onThemeChange(): void {
+  onThemeChange(): void {
     this.themeService.changeTheme(this.selectedTheme);
   }
 
-  public logout(): void {
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
 }

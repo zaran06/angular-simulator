@@ -9,11 +9,14 @@ import Nora from '@primeuix/themes/nora';
   providedIn: 'root',
 })
 export class ThemeService {
+
   private modeSubject = new BehaviorSubject<string>(localStorage.getItem('mode') ?? 'light');
-  public mode$ = this.modeSubject.asObservable();
+
+  mode$ = this.modeSubject.asObservable();
 
   private themeSubject = new BehaviorSubject<string>(localStorage.getItem('theme') ?? 'Aura');
-  public theme$ = this.themeSubject.asObservable();
+
+  theme$ = this.themeSubject.asObservable();
 
   constructor() {
     const currentMode = this.modeSubject.getValue();
@@ -28,7 +31,7 @@ export class ThemeService {
     this.changeTheme(currentTheme);
   }
 
-  public changeMode(newMode: string): void {
+  changeMode(newMode: string): void {
     this.modeSubject.next(newMode);
     localStorage.setItem('mode', newMode);
 
@@ -39,7 +42,7 @@ export class ThemeService {
     }
   }
 
-  public changeTheme(newTheme: string): void {
+  changeTheme(newTheme: string): void {
     this.themeSubject.next(newTheme);
     localStorage.setItem('theme', newTheme);
 
@@ -51,4 +54,5 @@ export class ThemeService {
       usePreset(Nora);
     }
   }
+
 }

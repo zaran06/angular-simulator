@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 
-
 @Component({
   selector: 'app-message',
   standalone: true,
@@ -11,6 +10,9 @@ import { MessageService } from '../../services/message.service';
   styleUrl: './message.component.scss',
 })
 export class MessageComponent {
-  public messageService = inject(MessageService);
-  public messages$ = this.messageService.messages$;
+
+  messageService = inject(MessageService);
+
+  messages$ = this.messageService.messages$;
+
 }

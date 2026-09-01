@@ -4,6 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'phone',
 })
 export class PhonePipe implements PipeTransform {
+
   transform(value: string | number, mode: string): string {
     const clearNumber = String(value).replace(/\D/g, '');
 
@@ -18,21 +19,22 @@ export class PhonePipe implements PipeTransform {
     const part3 = clearNumber.slice(10, 12);
 
     if (mode === 'compact') {
-      return `+${clearNumber}`;
+      return `+${ clearNumber }`;
     }
 
     if (mode === 'international') {
-      return `+${country} ${operator} ${part1} ${part2} ${part3}`;
+      return `+${ country } ${ operator } ${ part1 } ${ part2 } ${ part3 }`;
     }
 
     if (mode === 'national') {
-      return `${operator} ${part1} ${part2} ${part3}`;
+      return `${ operator } ${ part1 } ${ part2 } ${ part3 }`;
     }
 
     if (mode === 'masked') {
-      return `+${country} ${operator} *** ** ${part3}`;
+      return `+${ country } ${ operator } *** ** ${ part3 }`;
     }
 
     return String(value);
   }
+
 }

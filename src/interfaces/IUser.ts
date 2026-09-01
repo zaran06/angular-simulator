@@ -1,6 +1,6 @@
 export interface IGeo {
   lat: string;
-  lng:string;
+  lng: string;
 }
 
 export interface IAddress {

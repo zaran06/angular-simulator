@@ -1,4 +1,6 @@
-export{};
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+export {};
 
 // Задание №3
 function sumNumbers(a: number, b: number): number {
@@ -20,7 +22,7 @@ interface IUser {
   isHuman?: boolean;
 }
 
-let user: IUser = {
+const user: IUser = {
   name: 'Alex',
   surname: 'Page',
   age: 40,
@@ -32,7 +34,7 @@ interface IDoctor extends IUser {
   medicalEducation: boolean;
 }
 
-let doctor: IDoctor = {
+const doctor: IDoctor = {
   name: 'Muhammad',
   surname: 'Aliev',
   age: 30,
@@ -46,13 +48,13 @@ type StringFormat = 'uppercase' | 'lowercase' | 'capitalize';
 function formatStringVariant(str: string, format: StringFormat): string {
   if (format === 'uppercase') return str.toUpperCase();
   else if (format === 'lowercase') return str.toLowerCase();
-  else if (format === 'capitalize') return str[0].toUpperCase()+ str.slice(1);
+  else if (format === 'capitalize') return str[0].toUpperCase() + str.slice(1);
   else return str;
 }
 
 // Задание №9
 function removeCharFromString(str: string, char: string): string {
-  return str.split(char).join("");
+  return str.split(char).join('');
 }
 
 // Задание №10
@@ -67,13 +69,13 @@ const users: IUser[] = [
     name: 'Roberto',
     surname: 'Pablo',
     age: 48,
-    city: 'Chicago'
+    city: 'Chicago',
   },
   {
     name: 'Mike',
     surname: 'Jones',
     age: 52,
     city: 'USA',
-  }
+  },
 ];
-const filteredUsers = users.filter((item) => item.age > 47)
+const filteredUsers = users.filter((item) => item.age > 47);

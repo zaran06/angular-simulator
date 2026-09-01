@@ -13,7 +13,7 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
         if (event instanceof HttpResponse) {
           const requestTime = Date.now() - startTime;
 
-          console.log('HTTP time:', `${requestTime} ms`);
+          console.log('HTTP time:', `${ requestTime } ms`);
           console.log('HTTP status:', event.status);
         }
       },
@@ -23,7 +23,7 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
 
         console.log('HTTP error:', error);
         console.log('HTTP error status:', error.status);
-        console.log('HTTP time:', `${requestTime} ms`);
+        console.log('HTTP time:', `${ requestTime } ms`);
       },
     }),
   );

@@ -1,4 +1,12 @@
-import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  Renderer2,
+  inject,
+} from '@angular/core';
 
 import { IGradientConfiguration } from '../../../interfaces/IGradientConfiguration';
 
@@ -6,18 +14,18 @@ import { IGradientConfiguration } from '../../../interfaces/IGradientConfigurati
   selector: '[appGradient]',
 })
 export class GradientDirective implements OnDestroy {
+
   @Input()
-  public GradientConfiguration: IGradientConfiguration = {};
+  GradientConfiguration: IGradientConfiguration = {};
 
   private timerId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>,
-  ) {}
+  private renderer = inject(Renderer2);
+
+  private elementRef = inject(ElementRef<HTMLElement>);
 
   @HostListener('mouseenter')
-  public onMouseEnter(): void {
+  onMouseEnter(): void {
     this.clearTimer();
 
     const delay = this.GradientConfiguration.delay ?? 1000;
@@ -29,12 +37,12 @@ export class GradientDirective implements OnDestroy {
   }
 
   @HostListener('mouseleave')
-  public onMouseLeave(): void {
+  onMouseLeave(): void {
     this.clearTimer();
     this.removeGradient();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.clearTimer();
     this.removeGradient();
   }
@@ -48,14 +56,14 @@ export class GradientDirective implements OnDestroy {
 
     const gradientColors = colors.join(', ');
 
-    this.renderer.setStyle(element, 'border', `${thickness} solid transparent`);
+    this.renderer.setStyle(element, 'border', `${ thickness } solid transparent`);
 
     this.renderer.setStyle(
       element,
       'background',
       `
         linear-gradient(#ffffff, #ffffff) padding-box,
-        linear-gradient(90deg, ${gradientColors}) border-box
+        linear-gradient(90deg, ${ gradientColors }) border-box
       `,
     );
 
@@ -85,4 +93,5 @@ export class GradientDirective implements OnDestroy {
       this.timerId = null;
     }
   }
+
 }

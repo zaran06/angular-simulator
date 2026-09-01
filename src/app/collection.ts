@@ -1,8 +1,11 @@
 export class Collection<T> {
+
   private items: T[] = [];
+
   constructor(items: T[]) {
-    this.items = items
+    this.items = items;
   }
+
   getItems(): T[] {
     return this.items;
   }
@@ -22,4 +25,5 @@ export class Collection<T> {
   replace(index: number, newItem: T): void {
     this.items[index] = newItem;
   }
+
 }
