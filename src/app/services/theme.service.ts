@@ -4,17 +4,23 @@ import { usePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
 import Nora from '@primeuix/themes/nora';
+import { inject } from '@angular/core';
+import { APP_CONFIG } from '../app-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-
-  private modeSubject = new BehaviorSubject<string>(localStorage.getItem('mode') ?? 'light');
+  config = inject(APP_CONFIG);
+  private modeSubject = new BehaviorSubject<string>(
+    this.config.enableTheming ? (localStorage.getItem('mode') ?? 'light') : 'light',
+  );
 
   mode$ = this.modeSubject.asObservable();
 
-  private themeSubject = new BehaviorSubject<string>(localStorage.getItem('theme') ?? 'Aura');
+  private themeSubject = new BehaviorSubject<string>(
+    this.config.enableTheming ? (localStorage.getItem('theme') ?? 'Aura') : 'Aura',
+  );
 
   theme$ = this.themeSubject.asObservable();
 
@@ -32,17 +38,19 @@ export class ThemeService {
   }
 
   changeMode(newMode: string): void {
+    if (!this.config.enableTheming) {
+      return;
+    }
+
     this.modeSubject.next(newMode);
     localStorage.setItem('mode', newMode);
-
-    if (newMode === 'dark') {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
   }
 
   changeTheme(newTheme: string): void {
+    if (!this.config.enableTheming) {
+      return;
+    }
+    
     this.themeSubject.next(newTheme);
     localStorage.setItem('theme', newTheme);
 
@@ -54,5 +62,4 @@ export class ThemeService {
       usePreset(Nora);
     }
   }
-
 }
