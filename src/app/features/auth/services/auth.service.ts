@@ -8,6 +8,9 @@ import { APP_CONFIG } from '../../../app-config';
   providedIn: 'root',
 })
 export class AuthService {
+  private lastLoginSubject = new BehaviorSubject<string | null>(this.getLastLogin());
+
+  lastLogin$ = this.lastLoginSubject.asObservable();
   config = inject(APP_CONFIG);
   private http = inject(HttpClient);
 
@@ -22,11 +25,17 @@ export class AuthService {
       .post<IAuth>(`${this.apiUrl}/login`, {
         username,
         password,
+        sessionTimeout: this.config.sessionTimeout,
       })
       .pipe(
         tap((response) => {
           this.saveTokens(response.accessToken, response.refreshToken);
-          localStorage.setItem('lastLogin', new Date().toISOString());
+
+          const lastLogin = new Date().toISOString();
+
+          localStorage.setItem('lastLogin', lastLogin);
+          this.lastLoginSubject.next(lastLogin);
+
           this.currentUserSubject.next(response);
         }),
       );

@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private router = inject(Router);
 
-  lastLogin = this.authService.getLastLogin();
+  lastLogin$ = this.authService.lastLogin$;
 
   ngOnInit(): void {
     this.themeService.mode$.subscribe((mode) => {

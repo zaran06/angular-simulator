@@ -22,7 +22,12 @@
       <div class="header-actions">
         <button class="consult-btn semi-bold">Консультация</button>
 
-        <p-toggleswitch [(ngModel)]="isDarkMode" (onChange)="onModeChange()" [disabled]="!config.enableTheming"> </p-toggleswitch>
+        <p-toggleswitch
+          [(ngModel)]="isDarkMode"
+          (onChange)="onModeChange()"
+          [disabled]="!config.enableTheming"
+        >
+        </p-toggleswitch>
 
         <p-selectbutton
           [options]="themes"
@@ -37,7 +42,7 @@
         @if (authService.currentUser$ | async; as user) {
           <span>{{ user.firstName }}</span>
 
-          <span>Последний вход: {{ lastLogin | date:'dd.MM.yyyy HH:mm' }}</span>
+          <span>Последний вход: {{ lastLogin$ | async | date }}</span>
 
           <button type="button" (click)="logout()">Logout</button>
         }
