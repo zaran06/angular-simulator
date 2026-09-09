@@ -1,16 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MessageType } from '../../enums/MessageType';
 import { IMessage } from '../../interfaces/IMessage';
 import { BehaviorSubject } from 'rxjs';
+import { APP_CONFIG } from '../app-config';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
+  private config = inject(APP_CONFIG);
 
   private messageSubject = new BehaviorSubject<IMessage[]>([]);
 
   messages$ = this.messageSubject.asObservable();
 
   private addMessage(text: string, type: MessageType): void {
+    if (!this.config.enableNotifications) {
+      return;
+    }
+
     const id = Date.now();
 
     const newMessage: IMessage = {
@@ -35,19 +41,18 @@ export class MessageService {
   }
 
   showSuccess(text: string): void {
-    this.addMessage(text, MessageType.Success);
+    this.addMessage(text, MessageType.SUCCESS);
   }
 
   showInfo(text: string): void {
-    this.addMessage(text, MessageType.Info);
+    this.addMessage(text, MessageType.INFO);
   }
 
   showWarn(text: string): void {
-    this.addMessage(text, MessageType.Warn);
+    this.addMessage(text, MessageType.WARN);
   }
 
   showError(text: string): void {
-    this.addMessage(text, MessageType.Error);
+    this.addMessage(text, MessageType.ERROR);
   }
-
 }

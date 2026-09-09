@@ -6,16 +6,19 @@ import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { AsyncPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { APP_CONFIG } from '../../app-config';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, ToggleSwitchModule, FormsModule, SelectButtonModule, AsyncPipe],
+  imports: [RouterModule, ToggleSwitchModule, FormsModule, SelectButtonModule, AsyncPipe, DatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  config = inject(APP_CONFIG);
 
-  readonly companyName = 'РУМТИБЕТ';
+  readonly companyName = this.config.companyName;
 
   showTask4 = true;
 
@@ -34,6 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
 
   private router = inject(Router);
+
+  lastLogin$ = this.authService.lastLogin$;
 
   ngOnInit(): void {
     this.themeService.mode$.subscribe((mode) => {
@@ -75,7 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       minute: '2-digit',
       second: '2-digit',
     });
-    this.currentTime = `${ date } ${ time }`;
+    this.currentTime = `${date} ${time}`;
   }
 
   navLinks = [
@@ -114,5 +119,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
 }

@@ -11,6 +11,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { ButtonModule } from 'primeng/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthService } from './features/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-
   private storageService = inject(StorageService);
 
   messageService = inject(MessageService);
@@ -54,5 +54,4 @@ export class AppComponent {
       this.storageService.setItem('visitCount', savedVisits + 1);
     }
   }
-
 }

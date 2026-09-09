@@ -2,12 +2,16 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { APP_CONFIG } from '../../../app-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private lastLoginSubject = new BehaviorSubject<string | null>(this.getLastLogin());
 
+  lastLogin$ = this.lastLoginSubject.asObservable();
+  config = inject(APP_CONFIG);
   private http = inject(HttpClient);
 
   private readonly apiUrl = 'https://dummyjson.com/auth';
@@ -18,13 +22,20 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<IAuth>(`${ this.apiUrl }/login`, {
+      .post<IAuth>(`${this.apiUrl}/login`, {
         username,
         password,
+        sessionTimeout: this.config.sessionTimeout,
       })
       .pipe(
         tap((response) => {
           this.saveTokens(response.accessToken, response.refreshToken);
+
+          const lastLogin = new Date().toISOString();
+
+          localStorage.setItem('lastLogin', lastLogin);
+          this.lastLoginSubject.next(lastLogin);
+
           this.currentUserSubject.next(response);
         }),
       );
@@ -51,8 +62,9 @@ export class AuthService {
     const refreshToken = this.getRefreshToken();
 
     return this.http
-      .post<IAuth>(`${ this.apiUrl }/refresh`, {
+      .post<IAuth>(`${this.apiUrl}/refresh`, {
         refreshToken,
+        sessionTimeout: this.config.sessionTimeout,
       })
       .pipe(
         tap((response) => {
@@ -69,7 +81,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.http.get<IAuth>(`${ this.apiUrl }/me`);
+    return this.http.get<IAuth>(`${this.apiUrl}/me`);
   }
 
   initAuth() {
@@ -94,4 +106,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  getLastLogin(): string | null {
+    return localStorage.getItem('lastLogin');
+  }
 }

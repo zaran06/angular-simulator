@@ -173,7 +173,7 @@ export class HomeComponent {
   }
 
   isPrimaryColor(color: string): boolean {
-    return color === Color.Blue || color === Color.Red || color === Color.Green;
+    return color === Color.BLUE || color === Color.RED || color === Color.GREEN;
   }
 
 }
